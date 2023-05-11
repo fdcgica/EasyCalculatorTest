@@ -2,9 +2,11 @@ package com.example.easycalculator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 
@@ -67,6 +69,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     solutionTv.setText("");
                 }
                 break;
+            case "-":
+                if (!resultTV.equals("")) {
+                    num1 = Integer.parseInt(solutionTv.getText().toString());
+                    operation = "-";
+                    String val = String.valueOf(num1);
+                    resultTV.setText(val);
+                    solutionTv.setText("");
+                }
+                break;
+            case "*":
+                if (!resultTV.equals("")) {
+                    num1 = Integer.parseInt(solutionTv.getText().toString());
+                    operation = "*";
+                    String val = String.valueOf(num1);
+                    resultTV.setText(val);
+                    solutionTv.setText("");
+                }
+                break;
+            case "/":
+                if (!resultTV.equals("")) {
+                    num1 = Integer.parseInt(solutionTv.getText().toString());
+                    operation = "/";
+                    String val = String.valueOf(num1);
+                    resultTV.setText(val);
+                    solutionTv.setText("");
+                }
+                break;
             case "=":
                 num1 = Integer.parseInt(resultTV.getText().toString());
                 num2 = Integer.parseInt(solutionTv.getText().toString());
@@ -84,6 +113,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String val = "";
         if(operation.equals("+")){
             total = num1+num2;
+            val = String.valueOf(total);
+        }
+        if(operation.equals("-")){
+            total = num1-num2;
+            val = String.valueOf(total);
+        }
+        if(operation.equals("*")){
+            total = num1*num2;
+            val = String.valueOf(total);
+        }
+        if(operation.equals("/")){
+            total = num1/num2;
             val = String.valueOf(total);
         }
         return val;
