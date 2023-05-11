@@ -2,12 +2,9 @@ package com.example.easycalculator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 
@@ -15,6 +12,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     TextView resultTV, solutionTv;
     MaterialButton buttonC,button0,buttonEquals,buttonAdd,button1,button2,button3,buttonSub,button4,button5,button6,buttonMult,button7,button8,button9,buttonDiv;
+    String operation="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,27 +46,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn = findViewById(id);
         btn.setOnClickListener(this);
     }
-    void calculateNumbers(int num1, int num2, String operation){
-
-        if(operation.equals("+")){
-            resultTV.setText("69");
-            solutionTv.setText("");
-        }
-    }
-
     @Override
     public void onClick(View v) {
         MaterialButton button = (MaterialButton) v;
         String buttonText = button.getText().toString();
         String calculate = solutionTv.getText().toString();
-        int num1 = 0,num2 = 0;
-        String operation = "";
-        calculate = calculate+buttonText;
-        solutionTv.setText(calculate);
+        int num1,num2;
 
-        if(buttonText.equals("C")){
-            solutionTv.setText("");
-            resultTV.setText("");
+        switch (buttonText) {
+            case "C":
+                solutionTv.setText("");
+                resultTV.setText("");
+                break;
+            case "+":
+                if (!resultTV.equals("")) {
+                    num1 = Integer.parseInt(solutionTv.getText().toString());
+                    operation = "+";
+                    String val = String.valueOf(num1);
+                    resultTV.setText(val);
+                    solutionTv.setText("");
+                }
+                break;
+            case "=":
+                num1 = Integer.parseInt(resultTV.getText().toString());
+                num2 = Integer.parseInt(solutionTv.getText().toString());
+                resultTV.setText(calculateNumbers(num1, num2, operation));
+                solutionTv.setText("");
+                break;
+            default:
+                calculate = calculate + buttonText;
+                solutionTv.setText(calculate);
+                break;
         }
+    }
+    static String calculateNumbers(int num1, int num2, String operation){
+        int total;
+        String val = "";
+        if(operation.equals("+")){
+            total = num1+num2;
+            val = String.valueOf(total);
+        }
+        return val;
     }
 }
